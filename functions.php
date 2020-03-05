@@ -1,5 +1,60 @@
 <?php
 
+function lapizzeria_setup() {
+
+    /*** Titulos para SEO */
+    add_theme_support('title-tag');
+
+    /** Gutenberg */
+
+    // Soporte a estilos por default de gutenberg en tu tema
+    add_theme_support('wp-block-styles');
+
+    // Soporte a contenido completo
+    add_theme_support('align-wide');
+
+    // Paleta de Colores
+    add_theme_support('editor-color-palette', array(
+        array(
+            'name' => 'Rojo',
+            'slug' => 'rojo',
+            'color' => '#a61206'
+        ), 
+        array(
+            'name' => 'Naranja',
+            'slug' => 'naranja',
+            'color' => '#F19F30'
+        ), 
+        array(
+            'name' => 'Verde',
+            'slug' => 'verde',
+            'color' => '#127427'
+        ), 
+        array(
+            'name' => 'Blanco',
+            'slug' => 'blanco',
+            'color' => '#FFFFFF'
+        ), 
+        array(
+            'name' => 'Negro',
+            'slug' => 'negro',
+            'color' => '#000000'
+        ), 
+    ));
+
+    // Deshabilita los colores personalizados
+    add_theme_support('disable-custom-colors');
+
+    // Imagenes destacadas
+    add_theme_support('post-thumbnails');
+
+    // Tamaños de imagenes
+    add_image_size('nosotros', 437, 291, true);
+    add_image_size('especialidades', 768,515, true);
+    add_image_size('especialidades_portrait', 435, 526, true);
+}
+add_action('after_setup_theme', 'lapizzeria_setup');
+
 /** CSS y JS */
 function lapizzeria_styles() {
     // agregar hojas de estilos
@@ -17,3 +72,12 @@ function lapizzeria_styles() {
     wp_enqueue_script('scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0', true);
 }
 add_action('wp_enqueue_scripts', 'lapizzeria_styles');
+
+/** Menus */
+function lapizzeria_menus() {
+    register_nav_menus( array(
+        'header-menu' => 'Header Menu',
+        'redes-sociales' => 'Redes Sociales'
+    ));
+}
+add_action('init', 'lapizzeria_menus');
